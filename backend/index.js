@@ -2,9 +2,20 @@ import express from "express";
 import cors from "cors";
 import session from "express-session";
 import dotenv from "dotenv";
+import db from "./config/database.js";
+import UserRoute from "./routes/UserRoute.js";
+import ProductRoute from "./routes/ProductRoute.js";
+
 dotenv.config(); // mengizinkan membuat variabel lingkup dari file .env
 
 const app = express(); // inisialisai express
+
+//middleware untuk parsing json
+app.use(express.json());
+
+(async () => {
+  await db.sync();
+})();
 
 // middleware untuk session
 app.use(
@@ -27,7 +38,10 @@ app.use(
   })
 );
 
-app.use(express.json());
+// middleware route user & product
+app.use(UserRoute);
+app.use(ProductRoute);
+
 app.listen(process.env.APP_PORT, () => {
   console.log("Server up and running...");
 });
