@@ -3,29 +3,32 @@ POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "name": "Muhammad Rizki",
-    "email": "rizki@gmail.com",
+    "name": "kambing",
+    "email": "bing@gmail.com",
     "password": "123456",
     "confPassword": "123456",
-    "role": "admin",
+    "role": "user"
 }
 
 ###
 // Get All Users
-GET http://localhost:5000/users
+GET http://localhost:5000/users/
 
 ###
 // Get Single User
-GET http://localhost:5000/users/
+GET http://localhost:5000/users/1350c7e2-5e8a-450e-ac75-a9ed249e55f6
 
 ### update a user 
-PATCH  http://localhost:5000/users
+PATCH  http://localhost:5000/users/1350c7e2-5e8a-450e-ac75-a9ed249e55f6
 Content-Type: application/json
 
 {
-    "name": "Muhammad Rizki",
-    "email": "rizki@gmail.com",
-    "password": "123456",
-    "confPassword": "123456",
-    "role": "admin",
+    "name": "kambing putih",
+    "email": "bing@gmail.com",
+    "password": "",
+    "confPassword": "",
+    "role": "user"
 }
+
+### delete a user 
+DELETE http://localhost:5000/users/1350c7e2-5e8a-450e-ac75-a9ed249e55f6

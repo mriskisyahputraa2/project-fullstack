@@ -4,7 +4,7 @@ import db from "../config/database.js";
 const { DataTypes } = Sequelize; // Objek yang berisi tipe data yang didukung oleh Sequelize. Ini digunakan untuk mendefinisikan tipe kolom dalam model.
 
 // Mendefinisikan tabel model 'Users' ke database
-const Users = db.define(
+const User = db.define(
   "users",
   {
     // kolom uuid
@@ -57,4 +57,4 @@ const Users = db.define(
   }
 );
 
-export default Users;
+export default User;

@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize";
 import db from "../config/database.js";
-import Users from "./UsersModel.js";
+import User from "./UsersModel.js";
 
 const { DataTypes } = Sequelize; // Objek yang berisi tipe data yang didukung oleh Sequelize. Ini digunakan untuk mendefinisikan tipe kolom dalam model.
 
@@ -50,7 +50,7 @@ const Products = db.define(
 );
 
 // Relasi antar tabel 'Users' dan 'Products'
-Users.hasMany(Products); // hasMany(user dapat memiliki banyak products) hubungan satu-ke-banyak dari pengguna ke produk
-Products.belongsTo(Users, { foreignKey: "userId" }); // belongsTo(products hanya terkait dengan satu users) kolom userId di tabel product sebagai foreign Key yg menguhubungkan setiap produk
+User.hasMany(Products); // hasMany(user dapat memiliki banyak products) hubungan satu-ke-banyak dari pengguna ke produk
+Products.belongsTo(User, { foreignKey: "userId" }); // belongsTo(products hanya terkait dengan satu users) kolom userId di tabel product sebagai foreign Key yg menguhubungkan setiap produk
 
 export default Products;

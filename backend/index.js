@@ -2,10 +2,9 @@ import express from "express";
 import cors from "cors";
 import session from "express-session";
 import dotenv from "dotenv";
-import db from "./config/database.js";
+// import db from "./config/database.js";
 import UserRoute from "./routes/UserRoute.js"; // Pastikan path ini benar
 import ProductRoute from "./routes/ProductRoute.js"; // Pastikan path ini benar
-
 dotenv.config(); // Mengizinkan penggunaan variabel lingkungan dari file .env
 
 const app = express(); // Inisialisasi express
@@ -14,9 +13,9 @@ const app = express(); // Inisialisasi express
 app.use(express.json());
 
 // Sinkronisasi database
-(async () => {
-  await db.sync();
-})();
+// (async () => {
+//   await db.sync();
+// })();
 
 // Middleware untuk session
 app.use(
