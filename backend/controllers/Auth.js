@@ -1,4 +1,4 @@
-import User from "../models/UsersModel";
+import User from "../models/UsersModel.js";
 import argon2 from "argon2";
 
 // function login
@@ -33,11 +33,11 @@ export const Me = async (req, res) => {
   });
 
   if (!user) return res.status(404).json({ msg: "User tidak ditemukan!" });
-  res.status(200).json({ user });
+  res.status(200).json(user);
 };
 
 // function logout
-export const Logout = async (req, res) => {
+export const logOut = async (req, res) => {
   req.session.destroy((err) => {
     if (err) return res.status(400).json({ msg: "Tidak dapat logout" });
     res.status(200).json({ msg: "Anda telah logout" });

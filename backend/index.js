@@ -4,13 +4,12 @@ import session from "express-session";
 import dotenv from "dotenv";
 // import db from "./config/database.js";
 import UserRoute from "./routes/UserRoute.js"; // Pastikan path ini benar
+import AuthRoute from "./routes/AuthRoute.js";
 import ProductRoute from "./routes/ProductRoute.js"; // Pastikan path ini benar
+
 dotenv.config(); // Mengizinkan penggunaan variabel lingkungan dari file .env
 
 const app = express(); // Inisialisasi express
-
-// Middleware untuk parsing JSON
-app.use(express.json());
 
 // Sinkronisasi database
 // (async () => {
@@ -37,9 +36,13 @@ app.use(
   })
 );
 
-// Middleware route user & product
-app.use(UserRoute); // Menggunakan route User
-app.use(ProductRoute); // Menggunakan route Product
+// Middleware untuk parsing JSON
+app.use(express.json());
+
+// Middleware route
+app.use(UserRoute);
+app.use(ProductRoute);
+app.use(AuthRoute);
 
 // Menjalankan server pada port yang ditentukan dalam variabel lingkungan
 app.listen(process.env.APP_PORT, () => {

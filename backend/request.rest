@@ -16,14 +16,14 @@ GET http://localhost:5000/users/
 
 ###
 // Get Single User
-GET http://localhost:5000/users/1350c7e2-5e8a-450e-ac75-a9ed249e55f6
+GET http://localhost:5000/users/c903d5c1-11ea-4fc9-a558-5c551dc26152
 
 ### update a user 
-PATCH  http://localhost:5000/users/1350c7e2-5e8a-450e-ac75-a9ed249e55f6
+PATCH  http://localhost:5000/users/c903d5c1-11ea-4fc9-a558-5c551dc26152
 Content-Type: application/json
 
 {
-    "name": "kambing putih",
+    "name": "kambing hitam",
     "email": "bing@gmail.com",
     "password": "",
     "confPassword": "",
@@ -31,4 +31,19 @@ Content-Type: application/json
 }
 
 ### delete a user 
-DELETE http://localhost:5000/users/1350c7e2-5e8a-450e-ac75-a9ed249e55f6
+DELETE http://localhost:5000/users/a949985c-0fdd-48ec-ad8e-e7a937dca851
+
+### login a user 
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "rizki@gmail.com",
+    "password": "123456"
+}
+
+### get me
+GET http://localhost:5000/me
+
+### logout 
+DELETE http://localhost:5000/logout
