@@ -25,6 +25,7 @@ export const getUserById = async (req, res) => {
   }
 };
 export const createUser = async (req, res) => {
+  console.log(req.body);
   const { name, email, password, confPassword, role } = req.body;
   if (password !== confPassword)
     return res
@@ -32,7 +33,7 @@ export const createUser = async (req, res) => {
       .json({ msg: "Password dan Confirm Password tidak cocok" });
   const hashPassword = await argon2.hash(password);
   try {
-    await User.create({
+    await Users.create({
       name: name,
       email: email,
       password: hashPassword,
@@ -44,5 +45,58 @@ export const createUser = async (req, res) => {
   }
 };
 
-export const updateUser = async (req, res) => {};
-export const deleteUser = async (req, res) => {};
+export const updateUser = async (req, res) => {
+  const user = await Users.findOne({
+    where: {
+      uuid: req.params.id,
+    },
+  });
+  if (!user) return res.status(400).json({ msg: "User tidak ditemukan" });
+  const { name, email, password, confPassword, role } = req.body;
+  let hashPassword;
+  if (password === "" || password === null) {
+    hashPassword = user.password;
+  } else {
+    hashPassword = await argon2.hash(password);
+  }
+  if (password !== confPassword)
+    return res
+      .status(400)
+      .json({ msg: "Password dan Confirm Password tidak cocok" });
+  try {
+    await Users.update(
+      {
+        name: name,
+        email: email,
+        password: hashPassword,
+        role: role,
+      },
+      {
+        where: {
+          id: user.id,
+        },
+      }
+    );
+    res.status(200).json({ msg: "User Updated" });
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
+  }
+};
+export const deleteUser = async (req, res) => {
+  const user = await Users.findOne({
+    where: {
+      uuid: req.params.id,
+    },
+  });
+  if (!user) return res.status(400).json({ msg: "User tidak ditemukan" });
+  try {
+    await Users.destroy({
+      where: {
+        id: user.id,
+      },
+    });
+    res.status(200).json({ msg: "User Deleted" });
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
+  }
+};

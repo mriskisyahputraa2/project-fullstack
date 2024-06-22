@@ -5,12 +5,27 @@ Content-Type: application/json
 {
     "name": "Muhammad Rizki",
     "email": "rizki@gmail.com",
-    "password": "password",
-    "confPassword": "password",
+    "password": "123456",
+    "confPassword": "123456",
     "role": "admin",
 }
 
 ###
-// get All Users
+// Get All Users
 GET http://localhost:5000/users
 
+###
+// Get Single User
+GET http://localhost:5000/users/
+
+### update a user 
+PATCH  http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name": "Muhammad Rizki",
+    "email": "rizki@gmail.com",
+    "password": "123456",
+    "confPassword": "123456",
+    "role": "admin",
+}

@@ -3,45 +3,46 @@ import cors from "cors";
 import session from "express-session";
 import dotenv from "dotenv";
 import db from "./config/database.js";
-import UserRoute from "./routes/UserRoute.js";
-import ProductRoute from "./routes/ProductRoute.js";
+import UserRoute from "./routes/UserRoute.js"; // Pastikan path ini benar
+import ProductRoute from "./routes/ProductRoute.js"; // Pastikan path ini benar
 
-dotenv.config(); // mengizinkan membuat variabel lingkup dari file .env
+dotenv.config(); // Mengizinkan penggunaan variabel lingkungan dari file .env
 
-const app = express(); // inisialisai express
+const app = express(); // Inisialisasi express
 
-//middleware untuk parsing json
+// Middleware untuk parsing JSON
 app.use(express.json());
 
+// Sinkronisasi database
 (async () => {
   await db.sync();
 })();
 
-// middleware untuk session
+// Middleware untuk session
 app.use(
   session({
-    secret: process.env.SESS_SECRET, // digunakan untuk kunci rahasia ID session
-    resave: false, // mencegah session disimpan kembali ke storage jika tidak ada perubahan selama requset
-    saveUninitialized: true, // memakasa session yg baru, tapi tdk dimodifikasi, untuk disimpan ke storage
-    //  Mengatur cookie hanya digunakan pada koneksi HTTP
+    secret: process.env.SESS_SECRET, // Digunakan untuk kunci rahasia ID session
+    resave: false, // Mencegah session disimpan kembali ke storage jika tidak ada perubahan selama request
+    saveUninitialized: true, // Memaksa session yang baru, tapi tidak dimodifikasi, untuk disimpan ke storage
     cookie: {
-      secure: "auto", // mau itu HTTPS / HTTP ini akan otomatis
+      secure: "auto", // Mengatur cookie untuk digunakan pada koneksi HTTP/HTTPS secara otomatis
     },
   })
 );
 
-// middleware untuk cors
+// Middleware untuk CORS
 app.use(
   cors({
-    credentials: true, // Mengizinkan cookie dan header otentikasi lain dikirim dalam permintaan lintas origin.
-    origin: "http://localhost:3000", // Mengizinkan permintaan apapun itu dari origin http://localhost:3000.
+    credentials: true, // Mengizinkan cookie dan header otentikasi lain dikirim dalam permintaan lintas origin
+    origin: "http://localhost:3000", // Mengizinkan permintaan dari origin http://localhost:3000
   })
 );
 
-// middleware route user & product
-app.use(UserRoute);
-app.use(ProductRoute);
+// Middleware route user & product
+app.use(UserRoute); // Menggunakan route User
+app.use(ProductRoute); // Menggunakan route Product
 
+// Menjalankan server pada port yang ditentukan dalam variabel lingkungan
 app.listen(process.env.APP_PORT, () => {
   console.log("Server up and running...");
 });
