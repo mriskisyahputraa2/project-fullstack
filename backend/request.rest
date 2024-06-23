@@ -31,7 +31,7 @@ Content-Type: application/json
 }
 
 ### delete a user 
-DELETE http://localhost:5000/users/a949985c-0fdd-48ec-ad8e-e7a937dca851
+DELETE http://localhost:5000/users/53b1dadd-8f19-48dd-a6a7-623e5eca8c53
 
 ### login a user 
 POST http://localhost:5000/login
@@ -47,3 +47,5 @@ GET http://localhost:5000/me
 
 ### logout 
 DELETE http://localhost:5000/logout
+
+# menit 56
