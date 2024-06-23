@@ -23,7 +23,7 @@ PATCH  http://localhost:5000/users/c903d5c1-11ea-4fc9-a558-5c551dc26152
 Content-Type: application/json
 
 {
-    "name": "kambing hitam",
+    "name": "kambing hitam putih",
     "email": "bing@gmail.com",
     "password": "",
     "confPassword": "",
