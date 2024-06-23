@@ -12,8 +12,8 @@ dotenv.config(); // Mengizinkan penggunaan variabel lingkungan dari file .env
 
 const app = express(); // Inisialisasi express
 
+// mendefinisikan database session dengan object dari database mysql
 const sessionStore = SequelizeStore(session.Store);
-
 const store = new sessionStore({
   db: db,
 });
@@ -52,7 +52,8 @@ app.use(UserRoute);
 app.use(ProductRoute);
 app.use(AuthRoute);
 
-store.sync();
+// Sinkronisasi database session
+// store.sync();
 
 // Menjalankan server pada port yang ditentukan dalam variabel lingkungan
 app.listen(process.env.APP_PORT, () => {
