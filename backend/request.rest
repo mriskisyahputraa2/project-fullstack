@@ -58,4 +58,5 @@ GET http://localhost:5000/me
 ### logout 
 DELETE http://localhost:5000/logout
 
-# menit 56
+### Get All Products
+GET http://localhost:5000/products/
