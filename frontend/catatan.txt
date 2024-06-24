@@ -1,0 +1,22 @@
+1. install react dan redux
+    Redux adalah sebuah library untuk mengelola state global aplikasi, yang sering digunakan dalam aplikasi JavaScript yang kompleks untuk memastikan bahwa semua komponen memiliki akses ke state yang konsisten dan dapat diprediksi
+
+# Konsep Utama Redux
+    - Store: Tempat penyimpanan state aplikasi. Hanya ada satu store untuk setiap aplikasi Redux.
+    
+    - Action: Objek yang mengirimkan data dari aplikasi Anda ke store Redux. Action biasanya memiliki properti type dan payload data.
+    
+    - Reducer: Fungsi yang menentukan bagaimana state 
+    aplikasi berubah sebagai respons terhadap action yang dikirimkan ke store.
+    
+    - Dispatch: Metode untuk mengirimkan action ke store.
+    
+    - Selector: Fungsi untuk memilih dan mendapatkan data dari store.
+
+2. npm i react-router: digunakan untuk routing di aplikasi react
+
+3. npm i axios: digunakan untuk melakukan HTTP request, memungkinkan aplikasi untuk berkomunikasi dengan server, mengambil data dari API, atau mengirim data ke server
+
+4. npm i bulma: adalah CSS framework berbasis flexbox yg menyediakan  berbagai komponen dan grid system yang responsif. Ini memungkinkan pengembangan antarmuka pengguna yang elegan dan responsif dengan cepat.
+
+5. npm i react-icons: Untuk menggunakan berbagai ikon dari koleksi ikon populer dalam aplikasi React.
