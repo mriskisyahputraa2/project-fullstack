@@ -20,7 +20,6 @@ export const verifyUser = async (req, res, next) => {
 
 // function for check if your admin or not
 export const adminOnly = async (req, res, next) => {
-  // mencari user berdasasrkan id
   const user = await User.findOne({
     where: {
       uuid: req.session.userId,

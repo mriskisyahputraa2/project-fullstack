@@ -71,15 +71,18 @@ POST http://localhost:5000/products
 Content-Type: application/json
 
 {
-    "name": "Product 4 #User",
-    "price": 15
+    "name": "Product 3 #User",
+    "price": "2134u32rhjxnc"
 }
 
 ### Update a Product 
-PATCH  http://localhost:5000/products/9cd73153-5021-47a0-bff5-6ebe8985d2cc
+PATCH  http://localhost:5000/products/cb0e57ca-acd5-45a0-924b-5657832054b8
 Content-Type: application/json
 
 {
-   "name": "Product 1 updated",
-  "price": 110
+   "name": "Product 3 #User updated",
+  "price": 112
 }
+
+### Delete a Product 
+DELETE  http://localhost:5000/products/47ef186f-8d64-40e8-8604-5806dad41228

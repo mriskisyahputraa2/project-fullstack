@@ -108,6 +108,9 @@ export const updateProduct = async (req, res) => {
     });
 
     if (!product) return res.status(404).json({ msg: "Data tidak ditemukan" });
+
+    // inisialisai name & price dari permintan body
+    const { name, price } = req.body;
     if (req.role === "admin") {
       await Product.update(
         { name, price },
@@ -120,16 +123,16 @@ export const updateProduct = async (req, res) => {
       //  jika yang yang klik bukan admin tetapi user
     } else {
       // cek validasi apakah pengguna itu user atau bukan
-      if (req.userId !== product.userId) {
+      if (req.userId !== product.userId)
         return res
           .status(403)
           .json({ msg: "Akses terlarang, anda bukan admin" });
-      }
+
       await Product.update(
         { name, price },
         {
           where: {
-            id: product.id,
+            [Op.and]: [{ id: product.id }, { userId: req.userId }],
           },
         }
       );
@@ -139,4 +142,42 @@ export const updateProduct = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
-export const deleteProduct = async (req, res) => {};
+
+// function Delete Product
+export const deleteProduct = async (req, res) => {
+  try {
+    // mendapatkan data product berdasarkan id
+    const product = await Product.findOne({
+      where: {
+        uuid: req.params.id,
+      },
+    });
+
+    if (!product) return res.status(404).json({ msg: "Data tidak ditemukan" });
+
+    // inisialisai name & price dari permintan body
+    if (req.role === "admin") {
+      await Product.destroy({
+        where: {
+          id: product.id,
+        },
+      });
+      //  jika yang yang klik bukan admin tetapi user
+    } else {
+      // cek validasi apakah pengguna itu user atau bukan
+      if (req.userId !== product.userId)
+        return res
+          .status(403)
+          .json({ msg: "Akses terlarang, anda bukan admin" });
+
+      await Product.destroy({
+        where: {
+          [Op.and]: [{ id: product.id }, { userId: req.userId }],
+        },
+      });
+    }
+    res.status(200).json({ msg: "Product deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};

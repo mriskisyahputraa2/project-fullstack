@@ -1,6 +1,7 @@
 import User from "../models/UsersModel.js";
 import argon2 from "argon2";
 
+// Function Get Users
 export const getUsers = async (req, res) => {
   try {
     const response = await User.findAll({
@@ -11,6 +12,8 @@ export const getUsers = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
+
+// Function Get User By Id
 export const getUserById = async (req, res) => {
   try {
     const response = await User.findOne({
@@ -24,15 +27,22 @@ export const getUserById = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
+
+// Function Create User
 export const createUser = async (req, res) => {
   // console.log(req.body);
+
+  // inisialisai data yang dibuat
   const { name, email, password, confPassword, role } = req.body;
   if (password !== confPassword)
     return res
       .status(400)
       .json({ msg: "Password dan Confirm Password tidak cocok" });
+
+  // jika cocok, maka hasing password nya dengan module argon2
   const hashPassword = await argon2.hash(password);
   try {
+    // create user
     await User.create({
       name: name,
       email: email,
@@ -45,6 +55,7 @@ export const createUser = async (req, res) => {
   }
 };
 
+// Function Update User
 export const updateUser = async (req, res) => {
   const user = await User.findOne({
     where: {
@@ -52,6 +63,8 @@ export const updateUser = async (req, res) => {
     },
   });
   if (!user) return res.status(400).json({ msg: "User tidak ditemukan" });
+
+  // inisialisai data user dari request body
   const { name, email, password, confPassword, role } = req.body;
   let hashPassword;
   if (password === "" || password === null) {
@@ -82,6 +95,8 @@ export const updateUser = async (req, res) => {
     res.status(400).json({ msg: error.message });
   }
 };
+
+// Function Delete User
 export const deleteUser = async (req, res) => {
   const user = await User.findOne({
     where: {
