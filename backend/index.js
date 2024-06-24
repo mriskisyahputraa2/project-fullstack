@@ -19,9 +19,9 @@ const store = new sessionStore({
 });
 
 // Sinkronisasi database
-// (async () => {
-//   await db.sync();
-// })();
+(async () => {
+  await db.sync();
+})();
 
 // Middleware untuk session
 app.use(
@@ -53,7 +53,7 @@ app.use(ProductRoute);
 app.use(AuthRoute);
 
 // Sinkronisasi database session
-// store.sync();
+store.sync();
 
 // Menjalankan server pada port yang ditentukan dalam variabel lingkungan
 app.listen(process.env.APP_PORT, () => {
