@@ -12,7 +12,7 @@ dotenv.config(); // Mengizinkan penggunaan variabel lingkungan dari file .env
 
 const app = express(); // Inisialisasi express
 
-// mendefinisikan database session dengan object dari database mysql
+// inisialisai database session dengan object dari database mysql
 const sessionStore = SequelizeStore(session.Store);
 const store = new sessionStore({
   db: db,
@@ -28,7 +28,7 @@ app.use(
   session({
     secret: process.env.SESS_SECRET, // Digunakan untuk kunci rahasia ID session
     resave: false, // Mencegah session disimpan kembali ke storage jika tidak ada perubahan selama request
-    store: store,
+    store: store, // menyimpan session menggunakan instance store yang telah dibuat diatas. untuk menyimpan session di database melalui Sequelize.
     saveUninitialized: true, // Memaksa session yang baru, tapi tidak dimodifikasi, untuk disimpan ke storage
     cookie: {
       secure: "auto", // Mengatur cookie untuk digunakan pada koneksi HTTP/HTTPS secara otomatis
