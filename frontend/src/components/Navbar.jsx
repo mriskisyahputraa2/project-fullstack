@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../logo.png";
 
-export const Navbar = () => {
+const Navbar = () => {
   return (
     <div>
       <nav
@@ -42,3 +42,5 @@ export const Navbar = () => {
     </div>
   );
 };
+
+export default Navbar;

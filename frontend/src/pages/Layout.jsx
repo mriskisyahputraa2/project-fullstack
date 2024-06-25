@@ -1,14 +1,14 @@
 import React from "react";
-import { Navbar } from "../components/Navbar";
-import { Sidebar } from "../components/Sidebar";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
 import "bulma/css/bulma.css";
 
-export const Layout = ({ children }) => {
+const Layout = ({ children }) => {
   return (
     <div>
       <React.Fragment>
         <Navbar />
-        <div className="columns mt-6">
+        <div className="columns mt-6" style={{ minHeight: "100vh" }}>
           <div className="column is-2">
             <Sidebar />
           </div>
@@ -20,3 +20,4 @@ export const Layout = ({ children }) => {
     </div>
   );
 };
+export default Layout;
