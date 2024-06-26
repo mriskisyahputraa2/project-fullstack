@@ -8,7 +8,7 @@ import { getMe } from "../features/authSlice.js";
 const Users = () => {
   const dispatch = useDispatch(); // digunakan untuk mengirim action ke store redux
   const navigate = useNavigate(); // digunakan untuk mengarahkan pengguna ke halaman yg dituju
-  const { isError } = useSelector((state) => state.auth); // digunakan untuk mengakses state Redux. Di sini, kita mengambil "isError" dari state "auth".
+  const { isError, user } = useSelector((state) => state.auth); // digunakan untuk mengakses state Redux. Di sini, kita mengambil "isError" dari state "auth".
 
   // mengirim action ke getMe ketika component dimounting(pemasangan)
   useEffect(() => {
@@ -20,7 +20,10 @@ const Users = () => {
     if (isError) {
       navigate("/");
     }
-  }, [isError, navigate]);
+    if (user && user.role !== "admin") {
+      navigate("/dashboard");
+    }
+  }, [isError, user, navigate]);
   return (
     <div>
       <Layout>
