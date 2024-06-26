@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginUser, reset } from "../features/authSlice.js";
 
 const Login = () => {
+  // useState digunakan untuk menyimpan data yang dapat berubah"
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const Login = () => {
     (state) => state.auth
   );
 
+  // useEffect digunakan untuk melakukan fungsional, like pengambilan data ataupun pembaruan DOM
   useEffect(() => {
     if (user || isSuccess) {
       navigate("/dashboard");

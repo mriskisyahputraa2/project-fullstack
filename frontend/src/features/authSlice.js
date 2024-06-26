@@ -16,6 +16,7 @@ export const LoginUser = createAsyncThunk(
   "user/LoginUser",
   async (user, thunkAPI) => {
     try {
+      // menerima response data post dari sisi backend
       const response = await axios.post("http://localhost:5000/login", {
         email: user.email,
         password: user.password,
@@ -29,6 +30,24 @@ export const LoginUser = createAsyncThunk(
     }
   }
 );
+
+// Function Get Me dari request backend untuk frontend
+export const getMe = createAsyncThunk("user/getMe", async (_, thunkAPI) => {
+  try {
+    const response = await axios.get("http://localhost:5000/me");
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      const message = error.response.data.msg;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+});
+
+// Function LogOut
+export const LogOut = createAsyncThunk("user/LogOut", async () => {
+  await axios.delete("http://localhost:5000/logout");
+});
 
 export const authSlice = createSlice({
   name: "auth",
@@ -54,6 +73,21 @@ export const authSlice = createSlice({
 
     // Mengatur isLoading menjadi false, isError menjadi true, dan message menjadi payload dari aksi saat permintaan gagal.
     builder.addCase(LoginUser.rejected, (state, action) => {
+      state.isLoading = false;
+      state.isError = true;
+      state.message = action.payload;
+    });
+
+    // Get User Login
+    builder.addCase(getMe.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getMe.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.isSuccess = true;
+      state.user = action.payload;
+    });
+    builder.addCase(getMe.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
       state.message = action.payload;
