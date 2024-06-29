@@ -98,7 +98,6 @@ export const authSlice = createSlice({
 export const { reset } = authSlice.actions; // reset diekspor untuk mengatur ulang state
 export default authSlice.reducer; //  diekspor sebagai default untuk digunakan dalam store Redux.
 
-// menit 2.43 jam
 /*
 # Funtion LoginUser
     - createAsyncThunk digunakan untuk membuat thunk asinkron LoginUser.

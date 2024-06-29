@@ -33,6 +33,7 @@ const Sidebar = () => {
           </li>
         </ul>
 
+        {/* jika pengguna dengan user "admin" login maka, tampilkan menu sidebar Users */}
         {user && user.role === "admin" && (
           <div>
             <p className="menu-label">Admin</p>

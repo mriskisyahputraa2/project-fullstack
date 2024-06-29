@@ -19,8 +19,9 @@ const AddUser = () => {
     if (isError) {
       navigate("/");
     }
+    // jika pengguna login dengan role user, bukan admin
     if (user && user.role !== "admin") {
-      navigate("/dashboard");
+      navigate("/dashboard"); // bawa pengguna ke halaman dashboard dengan tidak adanya menu user di sidebar
     }
   }, [isError, user, navigate]);
   return (
