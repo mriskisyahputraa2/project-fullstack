@@ -3,38 +3,45 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 
 const FormEditUser = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confPassword, setConfPassword] = useState("");
+  const [role, setRole] = useState("");
   const [msg, setMsg] = useState("");
   const navigate = useNavigate();
   const { id } = useParams();
 
   // mendapatkan request users by id
   useEffect(() => {
-    const getUserId = async () => {
+    const getUserById = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/users/${id}`);
+        setName(response.data.name);
         setEmail(response.data.email);
-        setPassword(response.data.password);
+        setRole(response.data.role);
       } catch (error) {
         if (error.message) {
           setMsg(error.message.data.msg);
         }
       }
     };
-    getUserId();
+    getUserById();
   }, [id]);
 
   const updateUsers = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(`http://localhost/users/${id}`, {
+      await axios.patch(`http://localhost:5000/users/${id}`, {
+        name: name,
         email: email,
         password: password,
+        confPassword: confPassword,
+        role: role,
       });
-      navigate("/dashboard");
+      navigate("/users");
     } catch (error) {
-      if (error.message) {
+      if (error.response) {
         setMsg(error.response.data.msg);
       }
     }
@@ -52,29 +59,29 @@ const FormEditUser = () => {
               <div className="field">
                 <label className="label">Name</label>
                 <div className="control">
-                  <input type="text" className="input" placeholder="Name" />
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="input"
+                    placeholder="Name"
+                  />
                 </div>
               </div>
               <div className="field">
                 <label className="label">Email</label>
                 <div className="control">
-                  <input type="text" className="input" placeholder="Email" />
-                </div>
-              </div>
-              <div className="field">
-                <label className="label">Password</label>
-                <div className="control">
                   <input
-                    type="password"
-                    className="input"
+                    type="text"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="**********"
+                    className="input"
+                    placeholder="Email"
                   />
                 </div>
               </div>
               <div className="field">
-                <label className="label">Confirm Password</label>
+                <label className="label">Password</label>
                 <div className="control">
                   <input
                     type="password"
@@ -86,10 +93,28 @@ const FormEditUser = () => {
                 </div>
               </div>
               <div className="field">
+                <label className="label">Confirm Password</label>
+                <div className="control">
+                  <input
+                    type="password"
+                    className="input"
+                    value={confPassword}
+                    onChange={(e) => setConfPassword(e.target.value)}
+                    placeholder="**********"
+                  />
+                </div>
+              </div>
+              <div className="field">
                 <label className="label">Role</label>
                 <div className="control">
                   <div className="select is-fullwidth">
-                    <select>
+                    <select
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                    >
+                      <option value="" disabled>
+                        Select Role
+                      </option>
                       <option value="admin">Admin</option>
                       <option value="user">User</option>
                     </select>

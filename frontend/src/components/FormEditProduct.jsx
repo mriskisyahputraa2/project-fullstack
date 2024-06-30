@@ -35,8 +35,8 @@ const FormEditProduct = () => {
       });
       navigate("/products");
     } catch (error) {
-      if (error.message) {
-        setMsg(error.message.data.msg);
+      if (error.response) {
+        setMsg(error.response.data.msg);
       }
     }
   };

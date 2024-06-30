@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const FormAddUser = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
@@ -13,7 +14,8 @@ const FormAddUser = () => {
   const saveUser = async (e) => {
     e.preventDefault();
     try {
-      await axios.get("http://localhost:5000/users", {
+      await axios.post("http://localhost:5000/users", {
+        name: name,
         email: email,
         password: password,
         confPassword: confPassword,
@@ -21,8 +23,8 @@ const FormAddUser = () => {
       });
       navigate("/users");
     } catch (error) {
-      if (error.message) {
-        setMsg(error.message.data.msg);
+      if (error.response) {
+        setMsg(error.response.data.msg);
       }
     }
   };
@@ -39,7 +41,13 @@ const FormAddUser = () => {
               <div className="field">
                 <label className="label">Name</label>
                 <div className="control">
-                  <input type="text" className="input" placeholder="Name" />
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="input"
+                    placeholder="Name"
+                  />
                 </div>
               </div>
               <div className="field">
@@ -82,19 +90,15 @@ const FormAddUser = () => {
                 <label className="label">Role</label>
                 <div className="control">
                   <div className="select is-fullwidth">
-                    <select>
-                      <option
-                        value="admin"
-                        onChange={(e) => setRole(e.target.value)}
-                      >
-                        Admin
+                    <select
+                      value={role}
+                      onChange={(e) => setRole(e.target.value)}
+                    >
+                      <option value="" disabled>
+                        Select Role
                       </option>
-                      <option
-                        value="user"
-                        onChange={(e) => setRole(e.target.value)}
-                      >
-                        User
-                      </option>
+                      <option value="admin">Admin</option>
+                      <option value="user">User</option>
                     </select>
                   </div>
                 </div>
