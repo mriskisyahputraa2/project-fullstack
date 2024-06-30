@@ -5,15 +5,18 @@ import { Link } from "react-router-dom";
 function UserList() {
   const [users, setUsers] = useState([]);
 
+  // mendapatkan all users
   useEffect(() => {
     getUsers();
   });
 
+  // func mengambil data all users
   const getUsers = async () => {
     const response = await axios.get(`http://localhost:5000/users`);
     setUsers(response.data);
   };
 
+  // func delete user by id
   const deleteUser = async (userId) => {
     await axios.delete(`http://localhost:5000/users/${userId}`);
     getUsers();

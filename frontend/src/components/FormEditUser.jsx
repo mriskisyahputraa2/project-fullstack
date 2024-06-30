@@ -29,7 +29,7 @@ const FormEditUser = () => {
     getUserById();
   }, [id]);
 
-  const updateUsers = async (e) => {
+  const updateUser = async (e) => {
     e.preventDefault();
     try {
       await axios.patch(`http://localhost:5000/users/${id}`, {
@@ -54,7 +54,7 @@ const FormEditUser = () => {
       <div className="card is-shadowless">
         <div className="card-content">
           <div className="content">
-            <form onSubmit={updateUsers}>
+            <form onSubmit={updateUser}>
               <p className="has-text-centered">{msg}</p>
               <div className="field">
                 <label className="label">Name</label>
