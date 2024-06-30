@@ -6,3 +6,4 @@ const db = new Sequelize("auth_db", "root", "", {
 });
 
 export default db;
+//
